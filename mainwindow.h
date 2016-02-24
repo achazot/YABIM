@@ -15,8 +15,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_lin_prompt_returnPressed();
+
 private:
     Ui::MainWindow *ui;
+
+    void parseCommand(QString command);
 };
 
 #endif // MAINWINDOW_H
