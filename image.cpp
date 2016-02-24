@@ -17,7 +17,9 @@ Image::Image() : QImage()
 {}
 
 Image::Image(const QString &filename) : QImage(filename)
-{}
+{
+    this->load(filename);
+}
 
 Image::~Image()
 {}

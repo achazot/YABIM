@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     image.cpp \
-    filter.cpp
+    filter.cpp \
+    imagedisplay.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
-    filter.h
+    filter.h \
+    imagedisplay.h
 
 FORMS    += mainwindow.ui

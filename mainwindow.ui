@@ -24,18 +24,18 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QGraphicsView" name="gra_imageDisplay"/>
+       <widget class="ImageDisplay" name="gra_imageDisplay"/>
       </item>
       <item>
        <widget class="QComboBox" name="com_displayParameter">
         <item>
          <property name="text">
-          <string>Stretch</string>
+          <string>Stretch to fit</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Keep</string>
+          <string>Keep proportions</string>
          </property>
         </item>
        </widget>
@@ -93,7 +93,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>24</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -145,6 +145,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ImageDisplay</class>
+   <extends>QGraphicsView</extends>
+   <header>imagedisplay.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
