@@ -11,14 +11,9 @@
  * 2016
 */
 
-#include "mainwindow.h"
-#include <QApplication>
+#include "filter.h"
 
-int main(int argc, char *argv[])
+Filter::Filter()
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
 
-    return a.exec();
 }
