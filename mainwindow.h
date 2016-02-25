@@ -41,8 +41,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Image* currentImage;
-    QGraphicsPixmapItem* pixelMap;
-    QGraphicsScene *graphicsScene;
+    QGraphicsPixmapItem* m_pixelMap;
+    QGraphicsScene* m_graphicsScene;
 
     void parseCommand(QString command);
     void loadImage(QString file);

@@ -19,14 +19,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    m_pixelMap = new QGraphicsPixmapItem;
+    m_graphicsScene = new QGraphicsScene(this);
+    ui->gra_imageDisplay->setScene(m_graphicsScene);
+    m_graphicsScene->addItem(m_pixelMap);
+    m_pixelMap->show();
+
     currentImage = NULL;
-    pixelMap = NULL;
-    graphicsScene = NULL;
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    delete m_pixelMap;
 }
 
 void MainWindow::on_lin_prompt_returnPressed()
@@ -61,46 +68,34 @@ void MainWindow::loadImage(QString file)
     if (currentImage) delete currentImage;
     currentImage = new Image(file);
     if (currentImage) ui->tex_prompt->append("File "+file+" loaded.\n");
-    if (pixelMap) delete pixelMap;
-    pixelMap = new QGraphicsPixmapItem(QPixmap::fromImage((QImage)*currentImage));
-    if (graphicsScene) delete graphicsScene;
-    graphicsScene = new QGraphicsScene(this);
-    graphicsScene->addItem(pixelMap);
-    //graphicsScene->setSceneRect(currentImage->);
-    ui->gra_imageDisplay->setScene(graphicsScene);
-    ui->gra_imageDisplay->scene()->update();
-    if (ui->com_displayParameter->currentText()=="Stretch to fit")
+
+    m_pixelMap->setPixmap(QPixmap::fromImage((QImage)*currentImage));
+
+    if (ui->com_displayParameter->currentText() == "Stretch to fit")
     {
         ui->gra_imageDisplay->fitInView(
                     ui->gra_imageDisplay->scene()->sceneRect(),
                     Qt::KeepAspectRatio);
     }
-    ui->gra_imageDisplay->viewport()->update();
-    ui->gra_imageDisplay->show();
 }
 
 
 void MainWindow::on_com_displayParameter_currentTextChanged(const QString &arg1)
 {
-    if (ui->com_displayParameter->currentText()=="Stretch to fit")
+    if(arg1 == "Stretch to fit")
     {
         ui->gra_imageDisplay->fitInView(
                     ui->gra_imageDisplay->scene()->sceneRect(),
                     Qt::KeepAspectRatio);
         ui->gra_imageDisplay->viewport()->update();
-        ui->gra_imageDisplay->show();
     }
     else
     {
-        if (pixelMap) delete pixelMap;
-        pixelMap = new QGraphicsPixmapItem(QPixmap::fromImage((QImage)*currentImage));
-        if (graphicsScene) delete graphicsScene;
-        graphicsScene = new QGraphicsScene(this);
-        graphicsScene->addItem(pixelMap);
-        ui->gra_imageDisplay->setScene(graphicsScene);
+        m_pixelMap->setPixmap(QPixmap::fromImage((QImage)*currentImage));
+
+        m_graphicsScene->addItem(m_pixelMap);
         ui->gra_imageDisplay->scene()->update();
         ui->gra_imageDisplay->viewport()->update();
-        ui->gra_imageDisplay->show();
         ui->gra_imageDisplay->repaint();
     }
 }
