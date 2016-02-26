@@ -25,8 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gra_imageDisplay->setScene(m_graphicsScene);
     m_graphicsScene->addItem(m_pixelMap);
     m_pixelMap->show();
-
-    currentImage = NULL;
 }
 
 MainWindow::~MainWindow()
@@ -60,16 +58,26 @@ void MainWindow::parseCommand(QString command)
         }
         loadImage(cmdContent.first());
     }
+    else if(cmdContent.first() == "test")
+    {
+        TestFilter filter;
+        m_currentImage.applyFilter(&filter);
+        m_pixelMap->setPixmap(QPixmap::fromImage(m_currentImage));
+    }
 
 }
 
-void MainWindow::loadImage(QString file)
+void MainWindow::loadImage(const QString &filename)
 {
-    if (currentImage) delete currentImage;
-    currentImage = new Image(file);
-    if (currentImage) ui->tex_prompt->append("File "+file+" loaded.\n");
+    if(m_currentImage.load(filename))
+        ui->tex_prompt->append("File "+filename+" loaded.\n");
+    else
+    {
+        ui->tex_prompt->append("Unable to load " + filename + "...\n");
+        return;
+    }
 
-    m_pixelMap->setPixmap(QPixmap::fromImage((QImage)*currentImage));
+    m_pixelMap->setPixmap(QPixmap::fromImage(m_currentImage));
 
     if (ui->com_displayParameter->currentText() == "Stretch to fit")
     {
@@ -78,7 +86,6 @@ void MainWindow::loadImage(QString file)
                     Qt::KeepAspectRatio);
     }
 }
-
 
 void MainWindow::on_com_displayParameter_currentTextChanged(const QString &arg1)
 {
@@ -91,11 +98,19 @@ void MainWindow::on_com_displayParameter_currentTextChanged(const QString &arg1)
     }
     else
     {
-        m_pixelMap->setPixmap(QPixmap::fromImage((QImage)*currentImage));
+        m_pixelMap->setPixmap(QPixmap::fromImage(m_currentImage));
 
         m_graphicsScene->addItem(m_pixelMap);
         ui->gra_imageDisplay->scene()->update();
         ui->gra_imageDisplay->viewport()->update();
         ui->gra_imageDisplay->repaint();
     }
+}
+
+void MainWindow::on_actionLoad_triggered()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Select your image",
+                                                    QDir::homePath(), "Images (*.png *.xpm *.jpg)");
+    if(!filename.isEmpty())
+        loadImage(filename);
 }

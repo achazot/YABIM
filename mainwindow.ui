@@ -24,7 +24,11 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="ImageDisplay" name="gra_imageDisplay"/>
+       <widget class="ImageDisplay" name="gra_imageDisplay">
+        <property name="renderHints">
+         <set>QPainter::Antialiasing|QPainter::HighQualityAntialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QComboBox" name="com_displayParameter">

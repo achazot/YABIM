@@ -11,16 +11,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = YABIM
 TEMPLATE = app
 
+CONFIG += C++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     image.cpp \
     filter.cpp \
-    imagedisplay.cpp
+    imagedisplay.cpp \
+    testfilter.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
     filter.h \
-    imagedisplay.h
+    imagedisplay.h \
+    testfilter.h
 
 FORMS    += mainwindow.ui

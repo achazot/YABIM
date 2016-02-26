@@ -17,8 +17,11 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include <QFileDialog>
+
 #include "image.h"
 #include "filter.h"
+#include "testfilter.h"
 
 
 namespace Ui {
@@ -38,14 +41,16 @@ private slots:
 
     void on_com_displayParameter_currentTextChanged(const QString &arg1);
 
+    void on_actionLoad_triggered();
+
 private:
     Ui::MainWindow *ui;
-    Image* currentImage;
+    Image m_currentImage;
     QGraphicsPixmapItem* m_pixelMap;
     QGraphicsScene* m_graphicsScene;
 
     void parseCommand(QString command);
-    void loadImage(QString file);
+    void loadImage(const QString& filename);
 
 };
 
