@@ -114,3 +114,23 @@ void MainWindow::on_actionLoad_triggered()
     if(!filename.isEmpty())
         loadImage(filename);
 }
+
+void MainWindow::on_actionQuit_triggered()
+{
+    close();
+}
+
+void MainWindow::on_actionSave_as_triggered()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Chose a filename",
+                                                    QDir::homePath(), "Images (*.png *.xpm *.jpg)");
+    if(!filename.isEmpty())
+    {
+        save(filename);
+    }
+}
+
+void MainWindow::save(const QString& filename)
+{
+    m_currentImage.save(filename);
+}

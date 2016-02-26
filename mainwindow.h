@@ -38,10 +38,10 @@ public:
 
 private slots:
     void on_lin_prompt_returnPressed();
-
     void on_com_displayParameter_currentTextChanged(const QString &arg1);
-
     void on_actionLoad_triggered();
+    void on_actionQuit_triggered();
+    void on_actionSave_as_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -51,7 +51,7 @@ private:
 
     void parseCommand(QString command);
     void loadImage(const QString& filename);
-
+    void save(const QString& filename);
 };
 
 #endif // MAINWINDOW_H
